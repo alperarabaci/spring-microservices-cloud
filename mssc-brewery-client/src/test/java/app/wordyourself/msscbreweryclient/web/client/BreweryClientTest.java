@@ -37,6 +37,7 @@ class BreweryClientTest {
         log.info("URI:" + uri.toString());
     }
 
+    @Test
     void testUpdateBeer() {
         BeerDto beer = BeerDto.builder()
                 .beerName("myBeer")
@@ -70,6 +71,7 @@ class BreweryClientTest {
         log.info("URI:" + uri.toString());
     }
 
+    @Test
     void testUpdateCustomer() {
         CustomerDto customer = CustomerDto.builder()
                 .name("myBeer")
