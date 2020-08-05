@@ -1,8 +1,8 @@
-package app.wordyourself.msscbrewery.web.controller;
+package app.wordyourself.msscbrewery.web.controller.v2;
 
 import app.wordyourself.msscbrewery.service.BeerService;
-import app.wordyourself.msscbrewery.web.model.BeerDto;
-import org.apache.coyote.Response;
+import app.wordyourself.msscbrewery.service.v2.BeerServiceV2;
+import app.wordyourself.msscbrewery.web.model.v2.BeerDtoV2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,26 +10,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@Deprecated
-@RequestMapping("/api/v1/beer")
+/**
+ * alper - 05/08/2020
+ */
+@RequestMapping("/api/v2/beer")
 @RestController
-public class BeerController {
+public class BeerControllerV2 {
 
-    private final BeerService beerService;
+    private final BeerServiceV2 beerService;
 
-    public BeerController(BeerService beerService) {
+    public BeerControllerV2(BeerServiceV2 beerService) {
         this.beerService = beerService;
     }
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDto> getBeer(@PathVariable UUID beerId) {
-        BeerDto beer = beerService.getBeerById(beerId);
+    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable UUID beerId) {
+        BeerDtoV2 beer = beerService.getBeerById(beerId);
         return new ResponseEntity<>(beer, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody BeerDto beerDto) {
-        BeerDto savedDto = beerService.saveNewBeer(beerDto);
+    public ResponseEntity handlePost(@RequestBody BeerDtoV2 beerDto) {
+        BeerDtoV2 savedDto = beerService.saveNewBeer(beerDto);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "http:localhost:8080/api/v1/beer/" + savedDto.getId().toString());
@@ -39,7 +41,7 @@ public class BeerController {
 
     @PutMapping("/{beerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleUpdate(@PathVariable UUID beerId, @RequestBody BeerDto beerDto) {
+    public void handleUpdate(@PathVariable UUID beerId, @RequestBody BeerDtoV2 beerDto) {
         beerService.updateBeer(beerId, beerDto);
     }
 

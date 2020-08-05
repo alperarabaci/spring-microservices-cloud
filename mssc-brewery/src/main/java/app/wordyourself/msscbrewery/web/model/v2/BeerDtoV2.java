@@ -1,4 +1,4 @@
-package app.wordyourself.msscbrewery.web.model;
+package app.wordyourself.msscbrewery.web.model.v2;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto {
-    UUID id;
-    String name;
+public class BeerDtoV2 {
+    private UUID id;
+    private String beerName;
+    private BeerStyleEnum beerStyle;
+    private Long upc;
 }
