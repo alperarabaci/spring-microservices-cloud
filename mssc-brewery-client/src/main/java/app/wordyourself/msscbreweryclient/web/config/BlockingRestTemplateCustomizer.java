@@ -5,6 +5,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -16,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
  * alper - 05/08/2020
  */
 @Component
-@ConfigurationProperties("apache.http")
+@ConfigurationProperties("app.wordyourself")
 public class BlockingRestTemplateCustomizer implements RestTemplateCustomizer {
 
     private Integer maxTotal;
@@ -50,7 +51,7 @@ public class BlockingRestTemplateCustomizer implements RestTemplateCustomizer {
         restTemplate.setRequestFactory(this.clientHttpRequestFactory());
     }
 
-    public void setMaxTotal(Integer maxTotal) {
+    public void setMaxTotal(@Value("${maxtotal}")Integer maxTotal) {
         this.maxTotal = maxTotal;
     }
 
