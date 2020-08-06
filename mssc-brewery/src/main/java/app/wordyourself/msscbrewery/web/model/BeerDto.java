@@ -7,13 +7,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Positive;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BeerDto {
+	@Null
 	private UUID id;
-	private String beerName;	
+	@NotBlank
+	private String beerName;
+	@NotBlank
 	private String beerStyle;
+	@Positive
 	private Long upc;
 }
