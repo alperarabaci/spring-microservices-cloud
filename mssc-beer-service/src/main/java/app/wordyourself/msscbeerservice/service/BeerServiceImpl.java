@@ -8,10 +8,13 @@ import app.wordyourself.msscbeerservice.web.model.BeerDto;
 import app.wordyourself.msscbeerservice.web.model.BeerPagedList;
 import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 /**
  * alper - 06/08/2020
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -26,6 +30,7 @@ public class BeerServiceImpl implements BeerService {
     private final BeerRepository repo;
     private final BeerMapper mapper;
 
+    @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
 
@@ -70,6 +75,7 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
     }
 
+    @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
         if (showInventoryOnHand) {
@@ -100,5 +106,20 @@ public class BeerServiceImpl implements BeerService {
         beer.setUpc(beerDto.getUpc());
 
         return mapper.mapEntityToDto(repo.save(beer));
+    }
+
+    @Cacheable(cacheNames = "beerUpcCache", key = "#upc", condition = "#showInventoryOnHand == false ")
+    @Override
+    public BeerDto getBeerByUpc(String upc, Boolean showInventoryOnHand) {
+        log.info("I worked! I work a lot nowadays.");
+        if (showInventoryOnHand) {
+            return mapper.matEntityToDtoWithInventory(
+                    repo.findByUpc(upc).orElseThrow(NotFoundException::new)
+            );
+        } else {
+            return mapper.mapEntityToDto(
+                    repo.findByUpc(upc).orElseThrow(NotFoundException::new)
+            );
+        }
     }
 }

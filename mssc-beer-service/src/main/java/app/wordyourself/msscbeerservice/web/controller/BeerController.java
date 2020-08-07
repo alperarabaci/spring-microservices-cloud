@@ -87,4 +87,15 @@ public class BeerController {
     public void handleDelete(@PathVariable UUID beerId) {
 
     }
+
+
+    @GetMapping("/upc/{upc}")
+    public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable String upc,
+                                               @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand){
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
+
+        return new ResponseEntity<>(service.getBeerByUpc(upc, showInventoryOnHand), HttpStatus.OK);
+    }
 }

@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class BeerPagedList extends PageImpl<BeerDto> implements Serializable {
 
+    static final long serialVersionUID = 3735908460997028921L;
+
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public BeerPagedList(@JsonProperty("content") List<BeerDto> content,
                          @JsonProperty("number") int number,
