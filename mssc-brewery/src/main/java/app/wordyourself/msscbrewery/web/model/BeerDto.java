@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import app.wordyourself.msscbrewery.web.model.v2.BeerStyleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class BeerDto {
 	@NotBlank
 	private String beerName;
 	@NotBlank
-	private String beerStyle;
+	private BeerStyleEnum beerStyle;
 	@Positive
 	private Long upc;
 

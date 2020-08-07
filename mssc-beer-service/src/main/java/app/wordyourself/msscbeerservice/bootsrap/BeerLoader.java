@@ -12,11 +12,14 @@ import java.math.BigDecimal;
 /**
  * alper - 05/08/2020
  */
-@Component
 @Slf4j
 public class BeerLoader implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
+
+    public static final String BEER_1_UPC = "0631234200036";
+    public static final String BEER_2_UPC = "0631234300019";
+    public static final String BEER_3_UPC = "0083783375213";
 
     public BeerLoader(BeerRepository beerRepository) {
         this.beerRepository = beerRepository;
@@ -24,9 +27,10 @@ public class BeerLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadBeerObjects();
+        //using data.sql file now
     }
 
+    /*
     private void loadBeerObjects() {
         Beer beer = Beer.builder()
                 .beerName("Mango Bobs")
@@ -34,7 +38,7 @@ public class BeerLoader implements CommandLineRunner {
                 .quantityToBrew(200)
                 .minOnHand(12)
                 .price(new BigDecimal("12.95"))
-                .upc(1238218328000L)
+                .upc(BEER_1_UPC)
                 .build();
         beerRepository.save(beer);
 
@@ -44,10 +48,21 @@ public class BeerLoader implements CommandLineRunner {
                 .quantityToBrew(200)
                 .minOnHand(12)
                 .price(new BigDecimal("5.95"))
-                .upc(12382183289999L)
+                .upc(BEER_2_UPC)
                 .build();
         beerRepository.save(beer2);
 
+        Beer beer3 = Beer.builder()
+                .beerName("No Hammers On The Bar")
+                .beerStyle(BeerStyleEnum.IPA.toString())
+                .quantityToBrew(200)
+                .minOnHand(12)
+                .price(new BigDecimal("5.95"))
+                .upc(BEER_3_UPC)
+                .build();
+        beerRepository.save(beer3);
+
         log.info("Beers loaded: " + beerRepository.count());
     }
+    */
 }
