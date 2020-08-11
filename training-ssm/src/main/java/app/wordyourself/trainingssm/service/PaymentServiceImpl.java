@@ -38,8 +38,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public StateMachine<PaymentState, PaymentEvent> preAuth(Long paymentId) {
         StateMachine<PaymentState, PaymentEvent> sm = build(paymentId);
-
-        sendEvent(paymentId, sm, PaymentEvent.PRE_AUTH_APPROVED);
+        //action ile karar verilecek APPROVE kismina StateMachineConfig.preAuthAction
+        sendEvent(paymentId, sm, PaymentEvent.PRE_AUTHORIZE);
 
         return sm;
     }
