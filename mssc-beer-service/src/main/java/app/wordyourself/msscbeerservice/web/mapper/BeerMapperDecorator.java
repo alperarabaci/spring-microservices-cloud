@@ -3,7 +3,7 @@ package app.wordyourself.msscbeerservice.web.mapper;
 
 import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.msscbeerservice.service.BeerInventoryService;
-import app.wordyourself.msscbeerservice.web.model.BeerDto;
+import app.wordyourself.mssc.common.event.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

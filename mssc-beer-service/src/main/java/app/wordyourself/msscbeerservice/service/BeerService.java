@@ -1,6 +1,6 @@
 package app.wordyourself.msscbeerservice.service;
 
-import app.wordyourself.msscbeerservice.web.model.BeerDto;
+import app.wordyourself.mssc.common.event.BeerDto;
 import app.wordyourself.msscbeerservice.web.model.BeerPagedList;
 import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
 import org.springframework.data.domain.PageRequest;

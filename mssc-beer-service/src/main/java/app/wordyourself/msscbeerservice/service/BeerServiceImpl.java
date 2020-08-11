@@ -4,7 +4,7 @@ import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.msscbeerservice.repository.BeerRepository;
 import app.wordyourself.msscbeerservice.web.controller.NotFoundException;
 import app.wordyourself.msscbeerservice.web.mapper.BeerMapper;
-import app.wordyourself.msscbeerservice.web.model.BeerDto;
+import app.wordyourself.mssc.common.event.BeerDto;
 import app.wordyourself.msscbeerservice.web.model.BeerPagedList;
 import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
