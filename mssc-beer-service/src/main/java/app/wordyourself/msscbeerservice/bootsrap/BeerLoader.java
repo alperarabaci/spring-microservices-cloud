@@ -2,14 +2,13 @@ package app.wordyourself.msscbeerservice.bootsrap;
 
 import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.msscbeerservice.repository.BeerRepository;
-import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
+import app.wordyourself.mssc.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 /**
  * alper - 05/08/2020

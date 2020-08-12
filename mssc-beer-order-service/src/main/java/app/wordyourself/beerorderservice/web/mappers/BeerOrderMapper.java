@@ -18,7 +18,7 @@
 package app.wordyourself.beerorderservice.web.mappers;
 
 import app.wordyourself.beerorderservice.domain.BeerOrder;
-import app.wordyourself.beerorderservice.web.model.BeerOrderDto;
+import app.wordyourself.mssc.model.BeerOrderDto;
 import org.mapstruct.Mapper;
 
 @Mapper(uses = {DateMapper.class, BeerOrderLineMapper.class})

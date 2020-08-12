@@ -1,7 +1,7 @@
 package app.wordyourself.beerinventoryservice.web.mappers;
 
 import app.wordyourself.beerinventoryservice.domain.BeerInventory;
-import app.wordyourself.beerinventoryservice.web.model.BeerInventoryDto;
+import app.wordyourself.mssc.model.BeerInventoryDto;
 import org.mapstruct.Mapper;
 
 /**

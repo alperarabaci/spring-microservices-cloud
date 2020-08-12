@@ -12,6 +12,7 @@ import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
+import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.state.State;
 
@@ -43,6 +44,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<Paymen
                                .target(PaymentState.NEW)
                                .event(PaymentEvent.PRE_AUTHORIZE)
                                .action(preAuthAction())
+                               .guard(paymentIdGuard())
                 .and()
                 .withExternal().source(PaymentState.NEW)
                                .target(PaymentState.PRE_AUTH)
@@ -86,5 +88,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<Paymen
         };
     }
 
-
+    public Guard<PaymentState, PaymentEvent> paymentIdGuard(){
+        return context -> context.getMessageHeader(PaymentServiceImpl.PAYMENT_ID_HEADER) != null;
+    }
 }

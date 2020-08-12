@@ -5,7 +5,7 @@ import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.mssc.common.event.BrewBeerEvent;
 import app.wordyourself.msscbeerservice.repository.BeerRepository;
 import app.wordyourself.msscbeerservice.web.mapper.BeerMapper;
-import app.wordyourself.mssc.common.event.BeerDto;
+import app.wordyourself.mssc.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;

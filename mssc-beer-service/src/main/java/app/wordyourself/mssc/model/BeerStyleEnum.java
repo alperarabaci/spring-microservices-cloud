@@ -1,4 +1,4 @@
-package app.wordyourself.msscbeerservice.web.model;
+package app.wordyourself.mssc.model;
 
 /**
  * alper - 05/08/2020

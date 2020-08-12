@@ -15,8 +15,20 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package app.wordyourself.beerorderservice.web.model;
+package app.wordyourself.mssc.model;
 
-public enum OrderStatusEnum {
-    NEW, READY, PICKED_UP
+import lombok.*;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class OrderStatusUpdate  {
+
+    private UUID orderId;
+    private String customerRef;
+    private String orderStatus;
 }

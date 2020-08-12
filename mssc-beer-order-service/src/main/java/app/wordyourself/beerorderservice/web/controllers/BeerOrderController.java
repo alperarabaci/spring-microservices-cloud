@@ -18,8 +18,8 @@
 package app.wordyourself.beerorderservice.web.controllers;
 
 import app.wordyourself.beerorderservice.services.BeerOrderService;
-import app.wordyourself.beerorderservice.web.model.BeerOrderPagedList;
-import app.wordyourself.beerorderservice.web.model.BeerOrderDto;
+import app.wordyourself.mssc.model.BeerOrderPagedList;
+import app.wordyourself.mssc.model.BeerOrderDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

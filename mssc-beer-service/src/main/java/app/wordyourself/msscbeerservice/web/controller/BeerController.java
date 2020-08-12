@@ -1,9 +1,9 @@
 package app.wordyourself.msscbeerservice.web.controller;
 
 import app.wordyourself.msscbeerservice.service.BeerService;
-import app.wordyourself.mssc.common.event.BeerDto;
-import app.wordyourself.msscbeerservice.web.model.BeerPagedList;
-import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
+import app.wordyourself.mssc.model.BeerDto;
+import app.wordyourself.mssc.model.BeerPagedList;
+import app.wordyourself.mssc.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;

@@ -1,4 +1,4 @@
-package app.wordyourself.mssc.common.event;
+package app.wordyourself.mssc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package app.wordyourself.msscbeerservice.web.model;
+package app.wordyourself.mssc.model;
 
-import app.wordyourself.mssc.common.event.BeerDto;
+import app.wordyourself.mssc.model.BeerDto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;

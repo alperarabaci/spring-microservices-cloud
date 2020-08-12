@@ -2,7 +2,7 @@ package app.wordyourself.beerinventoryservice.web.controllers;
 
 import app.wordyourself.beerinventoryservice.repositories.BeerInventoryRepository;
 import app.wordyourself.beerinventoryservice.web.mappers.BeerInventoryMapper;
-import app.wordyourself.beerinventoryservice.web.model.BeerInventoryDto;
+import app.wordyourself.mssc.model.BeerInventoryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package app.wordyourself.msscbeerservice.web.mapper;
 
 import app.wordyourself.msscbeerservice.domain.Beer;
-import app.wordyourself.mssc.common.event.BeerDto;
+import app.wordyourself.mssc.model.BeerDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 

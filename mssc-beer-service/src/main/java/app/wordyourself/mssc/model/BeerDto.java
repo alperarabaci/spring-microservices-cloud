@@ -1,6 +1,5 @@
-package app.wordyourself.mssc.common.event;
+package app.wordyourself.mssc.model;
 
-import app.wordyourself.msscbeerservice.web.model.BeerStyleEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

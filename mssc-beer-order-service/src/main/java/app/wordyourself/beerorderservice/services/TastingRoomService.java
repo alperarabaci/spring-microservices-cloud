@@ -2,10 +2,10 @@ package app.wordyourself.beerorderservice.services;
 
 import app.wordyourself.beerorderservice.domain.Customer;
 import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
-import app.wordyourself.beerorderservice.web.model.BeerOrderLineDto;
+import app.wordyourself.mssc.model.BeerOrderLineDto;
 import app.wordyourself.beerorderservice.bootstrap.BeerOrderBootStrap;
 import app.wordyourself.beerorderservice.repositories.CustomerRepository;
-import app.wordyourself.beerorderservice.web.model.BeerOrderDto;
+import app.wordyourself.mssc.model.BeerOrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

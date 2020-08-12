@@ -3,7 +3,7 @@ package app.wordyourself.beerinventoryservice.service.inventory;
 import app.wordyourself.beerinventoryservice.config.JmsConfig;
 import app.wordyourself.beerinventoryservice.domain.BeerInventory;
 import app.wordyourself.beerinventoryservice.repositories.BeerInventoryRepository;
-import app.wordyourself.mssc.common.event.BeerDto;
+import app.wordyourself.mssc.model.BeerDto;
 import app.wordyourself.mssc.common.event.NewInventoryEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

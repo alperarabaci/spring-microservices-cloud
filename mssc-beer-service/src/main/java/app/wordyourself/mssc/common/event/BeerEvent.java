@@ -1,5 +1,6 @@
 package app.wordyourself.mssc.common.event;
 
+import app.wordyourself.mssc.model.BeerDto;
 import lombok.*;
 
 import java.io.Serializable;

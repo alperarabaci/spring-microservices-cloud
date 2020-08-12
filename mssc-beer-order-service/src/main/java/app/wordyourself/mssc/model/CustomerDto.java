@@ -15,33 +15,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package app.wordyourself.beerorderservice.web.model;
+package app.wordyourself.mssc.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class BeerOrderLineDto extends BaseItem {
+@AllArgsConstructor
+@Builder
+public class CustomerDto {
 
-    @Builder
-    public BeerOrderLineDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
-                            String upc, String beerName, UUID beerId, Integer orderQuantity) {
-        super(id, version, createdDate, lastModifiedDate);
-        this.upc = upc;
-        this.beerName = beerName;
-        this.beerId = beerId;
-        this.orderQuantity = orderQuantity;
-    }
+    private String name;
 
-    private String upc;
-    private String beerName;
-    private UUID beerId;
-    private Integer orderQuantity = 0;
 }
