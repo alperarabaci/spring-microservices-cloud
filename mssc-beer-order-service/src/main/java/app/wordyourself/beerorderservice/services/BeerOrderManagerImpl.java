@@ -48,6 +48,15 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         return sm;
     }
 
+    @Transactional
+    public void processValidationResult(UUID orderId, Boolean isValid) {
+        BeerOrder beerOrder = beerOrderRepository.getOne(orderId);
+        StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
+
+        BeerOrderEventEnum event =  isValid ? BeerOrderEventEnum.VALIDATION_PASSED : BeerOrderEventEnum.VALIDATION_FAILED;
+        sendBeerOrderEvent(beerOrder, event);
+    }
+
     private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum){
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 
