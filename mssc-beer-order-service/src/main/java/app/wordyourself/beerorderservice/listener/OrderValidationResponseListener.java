@@ -2,7 +2,7 @@ package app.wordyourself.beerorderservice.listener;
 
 import app.wordyourself.beerorderservice.config.JmsConfig;
 import app.wordyourself.beerorderservice.services.BeerOrderManager;
-import app.wordyourself.mssc.model.ValidateOrderResultMessage;
+import app.wordyourself.mssc.model.event.ValidateOrderResultMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;

@@ -1,8 +1,8 @@
 package app.wordyourself.msscbeerservice.listener;
 
 import app.wordyourself.mssc.model.BeerOrderLineDto;
-import app.wordyourself.mssc.model.ValidateBeerOrderRequest;
-import app.wordyourself.mssc.model.ValidateOrderResultMessage;
+import app.wordyourself.mssc.model.event.ValidateBeerOrderRequest;
+import app.wordyourself.mssc.model.event.ValidateOrderResultMessage;
 import app.wordyourself.msscbeerservice.config.JmsConfig;
 import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.msscbeerservice.repository.BeerRepository;
@@ -19,7 +19,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * alper - 12/08/2020

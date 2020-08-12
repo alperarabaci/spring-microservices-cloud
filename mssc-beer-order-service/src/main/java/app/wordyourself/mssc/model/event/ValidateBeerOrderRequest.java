@@ -1,5 +1,6 @@
-package app.wordyourself.mssc.model;
+package app.wordyourself.mssc.model.event;
 
+import app.wordyourself.mssc.model.BeerOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

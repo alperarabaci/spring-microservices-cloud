@@ -1,16 +1,10 @@
-package app.wordyourself.beerorderservice.config;
+package app.wordyourself.beerorderservice.sm;
 
 import app.wordyourself.beerorderservice.domain.BeerOrderEventEnum;
 import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
-import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
-import app.wordyourself.beerorderservice.services.BeerOrderManagerImpl;
-import app.wordyourself.beerorderservice.web.mappers.BeerOrderMapper;
-import app.wordyourself.mssc.model.BeerOrderDto;
-import app.wordyourself.mssc.model.ValidateBeerOrderRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
@@ -18,7 +12,6 @@ import org.springframework.statemachine.config.builders.StateMachineStateConfigu
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
 
 import java.util.EnumSet;
-import java.util.UUID;
 
 /**
  * alper - 12/08/2020
@@ -29,9 +22,10 @@ import java.util.UUID;
 @EnableStateMachineFactory
 public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-    private final JmsTemplate jmsTemplate;
-    private final BeerOrderRepository repo;
-    private final BeerOrderMapper mapper;
+    //ValidateOrderAction.class bunu isimden bulup spring inject eder
+    private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> validateOrderAction;
+    //AllocateOrderAction.class bunu isimden bulup spring inject eder
+    private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> allocateOrderRequest;
 
     @Override
     public void configure(StateMachineTransitionConfigurer<BeerOrderStatusEnum, BeerOrderEventEnum> transitions) throws Exception {
@@ -40,7 +34,7 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
                 .source(BeerOrderStatusEnum.NEW)
                 .target(BeerOrderStatusEnum.VALIDATION_PENDING)
                 .event(BeerOrderEventEnum.VALIDATE_ORDER)
-                .action(validateOrder())
+                .action(validateOrderAction)
                 .and()
                 .withExternal()
                 .source(BeerOrderStatusEnum.NEW)
@@ -50,31 +44,11 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
                 .withExternal()
                 .source(BeerOrderStatusEnum.NEW)
                 .target(BeerOrderStatusEnum.VALIDATION_EXCEPTION)
-                .event(BeerOrderEventEnum.VALIDATION_FAILED);
-    }
-
-    private Action<BeerOrderStatusEnum, BeerOrderEventEnum> validateOrder() {
-        return context -> {
-            String headerIdText = (String) context.getMessageHeaders().getOrDefault(BeerOrderManagerImpl.ORDER_ID_HEADER, "");
-            //TODO move to service
-            UUID orderId = UUID.fromString(headerIdText);
-            BeerOrderDto dto = mapper.beerOrderToDto(repo.getOne(orderId));
-
-            sendMessage(dto);
-        };
-    }
-
-    public void sendMessage(BeerOrderDto beerOrderDto) {
-        log.debug("I'm sending a message.");
-
-        ValidateBeerOrderRequest message = ValidateBeerOrderRequest.builder()
-                .id(UUID.randomUUID())
-                .order(beerOrderDto)
-                .build();
-
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER, message);
-
-        log.info("Message send" + message.getId().toString());
+                .event(BeerOrderEventEnum.VALIDATION_FAILED)
+                .and().withExternal()
+                .source(BeerOrderStatusEnum.VALIDATED).target(BeerOrderStatusEnum.ALLOCATION_PENDING)
+                .event(BeerOrderEventEnum.ALLOCATE_ORDER)
+                .action(allocateOrderRequest);
     }
 
     @Override

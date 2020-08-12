@@ -1,4 +1,4 @@
-package app.wordyourself.mssc.model;
+package app.wordyourself.mssc.model.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

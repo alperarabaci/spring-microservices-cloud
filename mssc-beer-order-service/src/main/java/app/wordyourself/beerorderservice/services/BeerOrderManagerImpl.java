@@ -4,7 +4,7 @@ import app.wordyourself.beerorderservice.domain.BeerOrder;
 import app.wordyourself.beerorderservice.domain.BeerOrderEventEnum;
 import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
 import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
-import app.wordyourself.mssc.model.OrderStatusEnum;
+import app.wordyourself.beerorderservice.sm.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -53,8 +53,16 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         BeerOrder beerOrder = beerOrderRepository.getOne(orderId);
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 
-        BeerOrderEventEnum event =  isValid ? BeerOrderEventEnum.VALIDATION_PASSED : BeerOrderEventEnum.VALIDATION_FAILED;
-        sendBeerOrderEvent(beerOrder, event);
+        if(isValid){
+            sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_PASSED);
+
+            BeerOrder validatedOrder = beerOrderRepository.findOneById(orderId);
+
+            sendBeerOrderEvent(validatedOrder, BeerOrderEventEnum.ALLOCATE_ORDER);
+
+        } else {
+            sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATION_FAILED);
+        }
     }
 
     private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum){

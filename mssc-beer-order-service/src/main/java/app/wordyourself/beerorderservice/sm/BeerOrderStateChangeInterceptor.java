@@ -1,9 +1,10 @@
-package app.wordyourself.beerorderservice.services;
+package app.wordyourself.beerorderservice.sm;
 
 import app.wordyourself.beerorderservice.domain.BeerOrder;
 import app.wordyourself.beerorderservice.domain.BeerOrderEventEnum;
 import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
 import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
+import app.wordyourself.beerorderservice.services.BeerOrderManagerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
