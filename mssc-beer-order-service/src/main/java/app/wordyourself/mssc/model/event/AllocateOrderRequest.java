@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * alper - 12/08/2020
  */
@@ -13,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AllocateOrderRequest {
+public class AllocateOrderRequest implements Serializable {
+
+    static final long serialVersionUID = -2715980318882476003L;
+
     private BeerOrderDto beerOrderDto;
 }

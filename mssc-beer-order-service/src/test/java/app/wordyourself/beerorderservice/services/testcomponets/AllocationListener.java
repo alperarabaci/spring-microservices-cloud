@@ -1,6 +1,8 @@
 package app.wordyourself.beerorderservice.services.testcomponets;
 
 import app.wordyourself.beerorderservice.config.JmsConfig;
+import app.wordyourself.mssc.model.BeerOrderDto;
+import app.wordyourself.mssc.model.event.AllocateOrderResult;
 import app.wordyourself.mssc.model.event.ValidateBeerOrderRequest;
 import app.wordyourself.mssc.model.event.ValidateOrderResultMessage;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +18,30 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class BeerOrderValidationListener {
+public class AllocationListener {
+
     private final JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
+    /**
+     * AllocateOrderAction send BeerOrderDto
+     * Get and evaluate it: false, false for happy path
+     * Send result to BeerOrderAllocationResultListener
+     * @param msg
+     */
+    @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_QUEUE)
     public void listen(Message msg){
 
-        ValidateBeerOrderRequest request = (ValidateBeerOrderRequest) msg.getPayload();
+        BeerOrderDto request = (BeerOrderDto) msg.getPayload();
 
         log.debug("########### I RAN ########");
 
-        ValidateOrderResultMessage message = ValidateOrderResultMessage.builder()
-                .isValid(true)
-                .orderId(request.getOrder().getId())
+        AllocateOrderResult message = AllocateOrderResult.builder()
+                .beerOrderDto(request)
+                .allocationError(false)
+                .pendingInventory(false)
                 .build();
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,message);
+        jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE,message);
 
     }
 }

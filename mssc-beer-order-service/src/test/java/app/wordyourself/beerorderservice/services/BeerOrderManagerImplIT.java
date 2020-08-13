@@ -99,7 +99,7 @@ class BeerOrderManagerImplIT {
             if(optFoundOrder.isPresent()) {
                 BeerOrder foundOrder = optFoundOrder.get();
                 log.debug("STATUS: (EOT)" + foundOrder.getOrderStatus().toString());
-                assertEquals(BeerOrderStatusEnum.ALLOCATION_PENDING, foundOrder.getOrderStatus());
+                assertEquals(BeerOrderStatusEnum.ALLOCATED, foundOrder.getOrderStatus());
             }
         });
         BeerOrder savedBeerOrder2 = beerOrderRepository.findById(savedBeerOrder.getId()).get();
