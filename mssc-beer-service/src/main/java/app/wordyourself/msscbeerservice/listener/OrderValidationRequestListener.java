@@ -52,6 +52,6 @@ public class OrderValidationRequestListener {
                 .isValid(isValid)
                 .build();
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESULT, payloadMessage);
+        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE, payloadMessage);
     }
 }

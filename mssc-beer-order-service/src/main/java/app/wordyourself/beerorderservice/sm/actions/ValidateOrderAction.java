@@ -1,6 +1,7 @@
 package app.wordyourself.beerorderservice.sm.actions;
 
 import app.wordyourself.beerorderservice.config.JmsConfig;
+import app.wordyourself.beerorderservice.domain.BeerOrder;
 import app.wordyourself.beerorderservice.domain.BeerOrderEventEnum;
 import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
 import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
@@ -34,7 +35,8 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
         String headerIdText = (String) context.getMessageHeaders().getOrDefault(BeerOrderManagerImpl.ORDER_ID_HEADER, "");
         //Boyle yaziyormus millet ben her seyi service'e koyuyordum.
         UUID orderId = UUID.fromString(headerIdText);
-        BeerOrderDto dto = mapper.beerOrderToDto(repo.getOne(orderId));
+        BeerOrder beerOrder = repo.findById(orderId).get();
+        BeerOrderDto dto = mapper.beerOrderToDto(beerOrder);
 
         sendMessage(dto);
     }
@@ -48,7 +50,7 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
                 .order(beerOrderDto)
                 .build();
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER, message);
+        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_QUEUE, message);
 
         log.info("Message send" + message.getId().toString());
     }

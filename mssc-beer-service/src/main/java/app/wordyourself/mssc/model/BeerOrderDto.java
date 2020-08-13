@@ -24,6 +24,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +33,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerOrderDto {
+public class BeerOrderDto implements Serializable {
+
+    static final long serialVersionUID = 6873961734026171468L;
+
     @JsonProperty("id")
     private UUID id = null;
 

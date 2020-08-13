@@ -3,6 +3,7 @@ package app.wordyourself.beerorderservice.services;
 import app.wordyourself.beerorderservice.domain.BeerOrder;
 import app.wordyourself.beerorderservice.domain.BeerOrderEventEnum;
 import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
+import app.wordyourself.mssc.model.BeerOrderDto;
 import org.springframework.statemachine.StateMachine;
 
 import java.util.UUID;
@@ -12,9 +13,17 @@ import java.util.UUID;
  */
 public interface BeerOrderManager {
 
-    BeerOrder newBeerOrder(BeerOrder beerOrder);
-
     StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> validated(BeerOrder beerOrder);
 
-    void processValidationResult(UUID orderId, Boolean isValid);
+    BeerOrder newBeerOrder(BeerOrder beerOrder);
+
+    void processValidationResult(UUID beerOrderId, Boolean isValid);
+
+    void beerOrderAllocationPassed(BeerOrderDto beerOrder);
+
+    void beerOrderAllocationPendingInventory(BeerOrderDto beerOrder);
+
+    void beerOrderAllocationFailed(BeerOrderDto beerOrder);
+
+    void beerOrderPickedUp(UUID id);
 }

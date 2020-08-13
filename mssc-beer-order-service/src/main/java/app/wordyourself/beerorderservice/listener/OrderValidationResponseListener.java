@@ -24,7 +24,7 @@ public class OrderValidationResponseListener {
 
     private final BeerOrderManager manager;
 
-    @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESULT)
+    @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
     public void listenForHello(@Payload ValidateOrderResultMessage request,
                                @Headers MessageHeaders headers,
                                Message message) throws JMSException {

@@ -19,7 +19,10 @@ package app.wordyourself.mssc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,7 +35,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class BeerOrderLineDto implements Serializable {
 
-    static final long serialVersionUID = -7918480748306351141L;
+    static final long serialVersionUID = -7635426473713399640L;
 
     @JsonProperty("id")
     private UUID id = null;

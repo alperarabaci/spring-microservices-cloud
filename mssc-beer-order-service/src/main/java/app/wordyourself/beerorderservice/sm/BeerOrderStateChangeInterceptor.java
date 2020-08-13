@@ -6,6 +6,7 @@ import app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum;
 import app.wordyourself.beerorderservice.repositories.BeerOrderRepository;
 import app.wordyourself.beerorderservice.services.BeerOrderManagerImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.state.State;
@@ -21,6 +22,7 @@ import java.util.UUID;
 /**
  * alper - 12/08/2020
  */
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum, BeerOrderEventEnum> {
@@ -42,8 +44,10 @@ public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdap
             return;
         }
         UUID orderId = UUID.fromString(headerIdText.toString());
-        BeerOrder order = orderRepository.getOne(orderId);
+        BeerOrder order = orderRepository.findById(orderId).get();
         order.setOrderStatus(state.getId());
         orderRepository.save(order);
+
+        log.debug("STATUS INCEPTION:" +state.getId() + " " + order.getId());
     }
 }
