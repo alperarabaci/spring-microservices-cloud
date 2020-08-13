@@ -10,9 +10,11 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
+import java.util.UUID;
 
 /**
  * alper - 12/08/2020
@@ -20,17 +22,18 @@ import javax.jms.Message;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class OrderValidationResponseListener {
+public class ValidationResultListener {
 
-    private final BeerOrderManager manager;
+    private final BeerOrderManager beerOrderManager;
 
+    @Transactional
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
-    public void listenForHello(@Payload ValidateOrderResultMessage request,
-                               @Headers MessageHeaders headers,
-                               Message message) throws JMSException {
-        log.debug("I got a message");
+    public void listen(ValidateOrderResultMessage result) {
+        final UUID beerOrderId = result.getOrderId();
 
-        manager.processValidationResult(request.getOrderId(), request.getIsValid());
+        log.debug("Validation Result for Order Id: " + beerOrderId);
 
+        beerOrderManager.processValidationResult(beerOrderId, result.getIsValid());
     }
+
 }

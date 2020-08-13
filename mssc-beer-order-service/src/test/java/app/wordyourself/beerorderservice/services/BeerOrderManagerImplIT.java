@@ -24,10 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum.NEW;
 import static app.wordyourself.beerorderservice.domain.BeerOrderStatusEnum.VALIDATED;
@@ -84,9 +81,10 @@ class BeerOrderManagerImplIT {
                 .build());
     }
 
-    @Transactional
     @Test
     final void testNewAllocated() throws JsonProcessingException {
+        log.debug("UUID: " +beerId);
+
         BeerDto beerDto = BeerDto.builder().id(beerId).upc("12354").build();
 
         wireMockServer.stubFor(get(BeerServiceImpl.BEER_PATH_V1)
@@ -95,13 +93,16 @@ class BeerOrderManagerImplIT {
         BeerOrder beerOrder = createBeerOrder();
         BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
 
-        await().atMost(5, SECONDS).untilAsserted(() -> {
-            BeerOrder foundOrder = beerOrderRepository.findById(savedBeerOrder.getId()).get();
+        await().untilAsserted(() -> {
+            Optional<BeerOrder> optFoundOrder = beerOrderRepository.findById(savedBeerOrder.getId());
 
-            log.debug("STATUS: (EOT)" +foundOrder.getOrderStatus().toString());
-            assertEquals(BeerOrderStatusEnum.ALLOCATION_PENDING, foundOrder.getOrderStatus());
+            if(optFoundOrder.isPresent()) {
+                BeerOrder foundOrder = optFoundOrder.get();
+                log.debug("STATUS: (EOT)" + foundOrder.getOrderStatus().toString());
+                assertEquals(BeerOrderStatusEnum.ALLOCATION_PENDING, foundOrder.getOrderStatus());
+            }
         });
-        BeerOrder savedBeerOrder2 = beerOrderManager.newBeerOrder(beerOrder);
+        BeerOrder savedBeerOrder2 = beerOrderRepository.findById(savedBeerOrder.getId()).get();
 
         assertNotNull(savedBeerOrder2);
         assertEquals(BeerOrderStatusEnum.ALLOCATED, savedBeerOrder2.getOrderStatus());

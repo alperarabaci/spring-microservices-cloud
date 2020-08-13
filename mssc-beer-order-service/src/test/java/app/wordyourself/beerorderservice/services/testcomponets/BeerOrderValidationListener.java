@@ -26,11 +26,12 @@ public class BeerOrderValidationListener {
 
         log.debug("########### I RAN ########");
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
-                ValidateOrderResultMessage.builder()
-                        .isValid(true)
-                        .orderId(request.getOrder().getId())
-                        .build());
+        ValidateOrderResultMessage message = ValidateOrderResultMessage.builder()
+                .isValid(true)
+                .orderId(request.getOrder().getId())
+                .build();
+
+        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,message);
 
     }
 }
