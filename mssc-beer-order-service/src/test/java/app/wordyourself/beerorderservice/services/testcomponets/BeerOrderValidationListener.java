@@ -21,13 +21,18 @@ public class BeerOrderValidationListener {
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
     public void listen(Message msg){
+        Boolean isValid = true;
 
         ValidateBeerOrderRequest request = (ValidateBeerOrderRequest) msg.getPayload();
 
         log.debug("########### I RAN ########");
 
+        if( "fall-validation".equalsIgnoreCase(request.getOrder().getCustomerRef())){
+            isValid = false;
+        }
+
         ValidateOrderResultMessage message = ValidateOrderResultMessage.builder()
-                .isValid(true)
+                .isValid(isValid)
                 .orderId(request.getOrder().getId())
                 .build();
 
