@@ -1,0 +1,31 @@
+package app.wordyourself.gateway.config;
+
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * alper - 14/08/2020
+ */
+@Configuration
+public class LocalHostRouteConfig {
+
+    @Bean
+    public RouteLocator localhostRoutes(RouteLocatorBuilder builder) {
+        return builder.routes()
+                .route(r -> r.path("/api/v1/beer*",
+                                             "/api/v1/beer/*",
+                                             "/api/v1/beerUpc/*")
+                        .uri("http://localhost:8080")
+                        .id("beer-service"))
+                .route(r -> r.path("/api/v1/customers*",
+                                            "/api/v1/customers/*",
+                                            "/api/v1/customers/*/orders*",
+                                            "/api/v1/customers/*/orders/*")
+                        .uri("http://localhost:8081")
+                        .id("beer-order-service"))
+                .build();
+    }
+
+}

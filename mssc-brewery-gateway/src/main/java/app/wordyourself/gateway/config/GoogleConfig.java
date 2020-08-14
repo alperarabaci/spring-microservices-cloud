@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Profile;
  * alper - 14/08/2020
  *  -Dspring.profiles.active=google
  */
-@Profile("google")
-@Configuration
+//@Profile("google")
+//@Configuration
 public class GoogleConfig {
 
     @Bean

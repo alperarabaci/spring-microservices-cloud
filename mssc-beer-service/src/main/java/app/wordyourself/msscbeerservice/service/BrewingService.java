@@ -28,7 +28,7 @@ public class BrewingService {
     private final JmsTemplate jmsTemplate;
     private final BeerMapper beerMapper;
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void checkForLowInverntory() {
         List<Beer> beers = repository.findAll();
 
