@@ -63,6 +63,10 @@ public class AllocationServiceImpl implements AllocationService {
 
                 beerInventoryRepository.delete(beerInventory);
             }
+
+            if (beerInventory.getQuantityOnHand() == 0) {
+                beerInventoryRepository.delete(beerInventory);
+            }
         });
 
     }
