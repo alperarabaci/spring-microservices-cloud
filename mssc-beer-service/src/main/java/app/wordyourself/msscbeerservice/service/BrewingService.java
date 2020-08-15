@@ -4,12 +4,12 @@ import app.wordyourself.msscbeerservice.config.JmsConfig;
 import app.wordyourself.msscbeerservice.domain.Beer;
 import app.wordyourself.mssc.common.event.BrewBeerEvent;
 import app.wordyourself.msscbeerservice.repository.BeerRepository;
+import app.wordyourself.msscbeerservice.service.inventory.BeerInventoryService;
 import app.wordyourself.msscbeerservice.web.mapper.BeerMapper;
 import app.wordyourself.mssc.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

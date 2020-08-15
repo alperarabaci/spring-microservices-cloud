@@ -2,7 +2,7 @@ package app.wordyourself.msscbeerservice.web.mapper;
 
 
 import app.wordyourself.msscbeerservice.domain.Beer;
-import app.wordyourself.msscbeerservice.service.BeerInventoryService;
+import app.wordyourself.msscbeerservice.service.inventory.BeerInventoryService;
 import app.wordyourself.mssc.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 

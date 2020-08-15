@@ -1,4 +1,4 @@
-package app.wordyourself.msscbeerservice.service;
+package app.wordyourself.msscbeerservice.service.inventory;
 
 import java.util.UUID;
 
