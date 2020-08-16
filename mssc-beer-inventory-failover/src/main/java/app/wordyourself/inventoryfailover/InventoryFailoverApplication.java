@@ -1,16 +1,16 @@
-package app.wordyourself.gateway;
+package app.wordyourself.inventoryfailover;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * -Dspring.profiles.active=google
+ * -Dspring.profiles.active=local-discovery
  */
 @SpringBootApplication
-public class MsscBreweryGatewayApplication {
+public class InventoryFailoverApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsscBreweryGatewayApplication.class, args);
+		SpringApplication.run(InventoryFailoverApplication.class, args);
 	}
 
 }
