@@ -89,8 +89,8 @@ public class BeerController {
     }
 
 
-    @GetMapping("/upc/{upc}")
-    public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable String upc,
+    @GetMapping("/upc")
+    public ResponseEntity<BeerDto> getBeerByUpc(@RequestParam String upc,
                                                @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand){
         if (showInventoryOnHand == null) {
             showInventoryOnHand = false;

@@ -26,7 +26,7 @@ public abstract class BeerMapperDecorator implements BeerMapper {
     @Override
     public BeerDto mapEntityToDto(Beer beer) {
         BeerDto dto = mapper.mapEntityToDto(beer);
-        dto.setQuantityOnHand(beerInventoryService.getOnhandInventory(beer.getId()));
+        //dto.setQuantityOnHand(beerInventoryService.getOnhandInventory(beer.getId()));
         return dto;
     }
 
