@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * alper - 15/08/2020
  */
-@FeignClient
+@FeignClient(name = "inventory-service")
 public interface InventoryServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET, value= BeerInventoryServiceRestTemplateImpl.INVENTORY_PATH)

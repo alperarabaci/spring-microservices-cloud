@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * -Dspring.profiles.active=local-discovery
  */
 @SpringBootApplication
-public class GatewayApplication {
+public class MsscBreweryGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GatewayApplication.class, args);
+		SpringApplication.run(MsscBreweryGatewayApplication.class, args);
 	}
 
 }
