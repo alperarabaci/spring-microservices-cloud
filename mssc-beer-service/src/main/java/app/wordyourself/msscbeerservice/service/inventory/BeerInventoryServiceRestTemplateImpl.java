@@ -1,6 +1,7 @@
 package app.wordyourself.msscbeerservice.service.inventory;
 
 import app.wordyourself.msscbeerservice.service.model.BeerInventoryDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import java.util.UUID;
@@ -22,22 +23,29 @@ import java.util.Objects;
  */
 @Profile("!local-discovery")
 @Slf4j
-@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "app.wordyourself", ignoreUnknownFields = false)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
 
     public static final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
     private final RestTemplate restTemplate;
-
+    //application.properties var
     private String beerInventoryServiceHost;
+    private String inventoryUser;
+    private String inventoryPassword;
 
     public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
         this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
 
-    public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-    }
+public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
+                                            @Value("${app.wordyourself.inventory-user}") String inventoryUser,
+                                            @Value("${app.wordyourself.inventory-password}") String inventoryPassword) {
+
+    this.restTemplate = restTemplateBuilder
+            .basicAuthentication(inventoryUser, inventoryPassword)
+            .build();
+}
 
     @Override
     public Integer getOnhandInventory(UUID beerId) {
