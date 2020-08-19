@@ -23,7 +23,7 @@ import java.util.Objects;
  */
 @Profile("!local-discovery")
 @Slf4j
-@ConfigurationProperties(prefix = "app.wordyourself", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "app.wordyourself", ignoreUnknownFields = true)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
 
