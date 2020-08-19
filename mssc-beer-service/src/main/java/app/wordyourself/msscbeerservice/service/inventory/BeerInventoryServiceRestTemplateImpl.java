@@ -38,14 +38,14 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
         this.beerInventoryServiceHost = beerInventoryServiceHost;
     }
 
-public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
-                                            @Value("${app.wordyourself.inventory-user}") String inventoryUser,
-                                            @Value("${app.wordyourself.inventory-password}") String inventoryPassword) {
+    public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
+                                                @Value("${app.wordyourself.inventory-user}") String inventoryUser,
+                                                @Value("${app.wordyourself.inventory-password}") String inventoryPassword) {
 
-    this.restTemplate = restTemplateBuilder
-            .basicAuthentication(inventoryUser, inventoryPassword)
-            .build();
-}
+        this.restTemplate = restTemplateBuilder
+                .basicAuthentication(inventoryUser, inventoryPassword)
+                .build();
+    }
 
     @Override
     public Integer getOnhandInventory(UUID beerId) {
