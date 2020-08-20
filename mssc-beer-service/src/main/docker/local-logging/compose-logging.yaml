@@ -1,14 +1,30 @@
 version: '3.8'
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    ports:
+    - 9200:9200
+    environment:
+      discovery.type: single-node
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.7.0
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    restart: on-failure
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.7.0
+    volumes:
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    user: root
   jms:
     image: vromero/activemq-artemis
     ports:
       - 8161:8161
       - 61616:61616
-  zipkin:
-    image: openzipkin/zipkin
-    ports:
-      - 9411:9411
   eureka:
     image: alperarabaci/mssc-brewery-eureka
     ports:
@@ -38,6 +54,10 @@ services:
       SPRING_ARTEMIS_HOST: jms
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3307/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    restart: on-failure
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
   beer-service:
     image: alperarabaci/mssc-beer-service
     ports:
@@ -54,6 +74,10 @@ services:
       SPRING_ARTEMIS_HOST: jms
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3307/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    restart: on-failure
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
   inventory-failover:
     image: alperarabaci/mssc-beer-inventory-failover
     ports:
@@ -66,6 +90,9 @@ services:
       SPRING_PROFILES_ACTIVE: local-discovery
       SPRING_ZIPKIN_BASEURL: http://zipkin
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
   order-service:
     image: alperarabaci/mssc-beer-order-service
     ports:
@@ -82,6 +109,9 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3307/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       APP_WORDYOURSELF_BEER-SERVICE-HOST: http://beer-service:8080
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
   gateway:
     image: alperarabaci/mssc-brewery-gateway
     ports:
@@ -97,3 +127,6 @@ services:
         EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
         SPRING_PROFILES_ACTIVE: local-discovery
         EUREKA_INSTANCE_PREFER_IP_ADDRESS: 'true'
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
